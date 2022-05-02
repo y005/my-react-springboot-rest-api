@@ -8,12 +8,12 @@ import alert from "bootstrap/js/src/alert";
 
 function App() {
   //판매 상품 정보 배열
-  const [products, setProducts] = useState(
-      []
-  );
-
+  const [products, setProducts] = useState([]);
   //사용자가 선택한 상품 정보 배열
   const [items, setItems] = useState([]);
+  //품목 장르 정보 배열
+  const [genres, setGenres] = useState([]);
+
   const handleAddClicked = (id) => {
     const product = products.find(v=> v.id === id);
     const found = items.find(v=>v.id === id);
@@ -45,9 +45,26 @@ function App() {
     }
   }
 
+  const handleGenreClick = (genre) => {
+    console.log(genre)
+    if (genre.genre === "all") {
+        axios.get('http://localhost:8080/api/v1/products')
+            .then(v=>setProducts(v.data));
+    }
+    else {
+        axios.get('http://localhost:8080/api/v1/products?genre='+genre.genre)
+            .then(v=>setProducts(v.data));
+    }
+  }
+
   useEffect(()=> {
       axios.get('http://localhost:8080/api/v1/products')
             .then(v=>setProducts(v.data));
+      },[]);
+
+  useEffect(()=> {
+      axios.get('http://localhost:8080/api/v1/products/genres')
+            .then(v=>setGenres(v.data));
       },[]);
 
   return (
@@ -58,7 +75,7 @@ function App() {
         <div className="card">
           <div className="row">
             <div className="col-md-8 mt-4 d-flex flex-column align-items-start p-3 pt-0">
-              <ProductList products={products} onAddClick={handleAddClicked}/>
+              <ProductList products={products} onAddClick={handleAddClicked} genres={genres} onGenreClick={handleGenreClick}/>
             </div>
               <div className="col-md-4 summary p-4">
                 <Summary items={items} onOrderSubmit={handleOrderSubmit}/>

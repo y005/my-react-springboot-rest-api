@@ -18,7 +18,7 @@ public class DefaultOrderService implements OrderService {
     }
 
     @Override
-    public void createOrder(String email, String address, String postcode, long totalPrice, List<OrderItem> orderItems) {
+    public void createOrder(String email, String address, String postcode, long totalPrice, List<OrderItem> orderItems) throws Exception {
         jdbcOrderRepository.createOrder(new Order(email, address, postcode, totalPrice, "accepted", orderItems));
     }
 }

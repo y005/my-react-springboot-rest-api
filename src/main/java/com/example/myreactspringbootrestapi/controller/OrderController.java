@@ -17,7 +17,7 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @PostMapping(value = "",consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String createOrder(@RequestBody CreateOrderDto createOrderDto) {
         try {

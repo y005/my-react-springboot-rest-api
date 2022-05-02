@@ -1,5 +1,6 @@
 package com.example.myreactspringbootrestapi.service;
 
+import com.example.myreactspringbootrestapi.domain.Genre;
 import com.example.myreactspringbootrestapi.domain.Product;
 import com.example.myreactspringbootrestapi.exception.NoGameGenreException;
 
@@ -13,4 +14,7 @@ public interface ProductService {
     public List<Product> getProducts(long page, long size);
     public List<Product> getProductByName(String name);
     public List<Product> getProductById(long id);
+    public List<Product> getProductsByGenre(long page, long size, String genre);
+    public List<Genre> getProductGenres();
+
 }

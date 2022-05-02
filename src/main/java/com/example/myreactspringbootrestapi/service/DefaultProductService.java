@@ -1,5 +1,6 @@
 package com.example.myreactspringbootrestapi.service;
 
+import com.example.myreactspringbootrestapi.domain.Genre;
 import com.example.myreactspringbootrestapi.domain.Product;
 import com.example.myreactspringbootrestapi.exception.NoGameGenreException;
 import com.example.myreactspringbootrestapi.repository.JdbcProductRepository;
@@ -50,5 +51,15 @@ public class DefaultProductService implements ProductService{
     @Override
     public List<Product> getProductById(long id) {
         return jdbcProductRepository.getProductById(id).stream().toList();
+    }
+
+    @Override
+    public List<Product> getProductsByGenre(long page, long size, String genre) {
+        return jdbcProductRepository.getProductsByGenre(page, size, genre);
+    }
+
+    @Override
+    public List<Genre> getProductGenres() {
+        return jdbcProductRepository.getProductGenres();
     }
 }

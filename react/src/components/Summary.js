@@ -44,7 +44,7 @@ export function Summary({items = [], onOrderSubmit}) {
                 <div>당일 오후 2시 이후의 주문은 다음날 배송을 시작합니다.</div>
             </form>
             <div className="row pt-2 pb-2 border-top">
-                <h5 className="col">총금액</h5>
+                <h5 className="col">총 금액</h5>
                 <h5 className="col text-end">{total_price}원</h5>
             </div>
             <button className="btn btn-dark col-12" onClick={handleSubmit}>결제하기</button>

@@ -5,6 +5,7 @@ import com.example.myreactspringbootrestapi.domain.OrderItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -13,6 +14,7 @@ import java.util.Map;
 @Repository
 public class JdbcOrderRepository implements OrderRepository {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private JdbcProductRepository jdbcProductRepository;
 
     private Map<String, Object> getOrderParam(Order order) {
         Map<String,Object> orderParam = new HashMap<>();
@@ -39,22 +41,25 @@ public class JdbcOrderRepository implements OrderRepository {
     }
 
     @Autowired
-    public JdbcOrderRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+    public JdbcOrderRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate, JdbcProductRepository jdbcProductRepository) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+        this.jdbcProductRepository = jdbcProductRepository;
     }
 
     @Override
+    @Transactional
     public void createOrder(Order order) {
         namedParameterJdbcTemplate.update(
                 "insert into mysql.orders(email, address, postcode, total_price, order_status, createdAt, updatedAt) values(:email, :address, :postcode,:total_price, :order_status, :createdAt, :updatedAt)",
                 getOrderParam(order)
         );
-        long orderId = getOrderIdByEmail(order.getEmail().toString());
+        long orderId = getOrderIdByEmail(order.getEmail());
         order.getOrderItems().stream().forEach((e)->{
-            namedParameterJdbcTemplate.update(
-                "insert into mysql.orders_item(order_id, product_id, genre, quantity, price) values(:order_id, :product_id, :genre, :quantity, :price)",
-                getOrderItemParam(e, orderId)
-            );
+             jdbcProductRepository.updateInventory(e.getId(), e.getQuantity());
+                namedParameterJdbcTemplate.update(
+                        "insert into mysql.orders_item(order_id, product_id, genre, quantity, price) values(:order_id, :product_id, :genre, :quantity, :price)",
+                        getOrderItemParam(e, orderId)
+                );
         });
     }
 

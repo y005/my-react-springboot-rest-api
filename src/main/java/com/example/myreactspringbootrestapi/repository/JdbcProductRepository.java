@@ -1,11 +1,14 @@
 package com.example.myreactspringbootrestapi.repository;
 
+import com.example.myreactspringbootrestapi.domain.Genre;
 import com.example.myreactspringbootrestapi.domain.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -56,7 +59,7 @@ public class JdbcProductRepository implements ProductRepository {
         Product updatedProduct = getProductById(product.getId()).get();
 
         updatedProduct.setName(product.getName());
-        updatedProduct.setGenre(product.getGenre().toString());
+        updatedProduct.setGenre(product.getGenre());
         updatedProduct.setPrice(product.getPrice());
         updatedProduct.setQuantity(product.getQuantity());
         updatedProduct.setImg(product.getImg());
@@ -98,6 +101,15 @@ public class JdbcProductRepository implements ProductRepository {
     }
 
     @Override
+    public List<Product> getProductsByGenre(long page, long size, String genre) {
+        return namedParameterJdbcTemplate.query(
+                "select * from mysql.products where genre=:genre order by id limit "+ size +" offset "+page*size,
+                Collections.singletonMap("genre", genre),
+                productRowMapper
+        );
+    }
+
+    @Override
     public Optional<Product> getProductById(long id) {
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
@@ -106,6 +118,20 @@ public class JdbcProductRepository implements ProductRepository {
                 params,
                 productRowMapper
         ));
+    }
+
+    @Override
+    public List<Genre> getProductGenres() {
+        return namedParameterJdbcTemplate.query(
+                "select distinct genre from mysql.products order by genre",
+                Collections.emptyMap(),
+                new RowMapper<Genre>() {
+                    @Override
+                    public Genre mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        return Genre.toGenre(rs.getString("genre"));
+                    }
+                }
+        );
     }
 
     @Override
@@ -125,5 +151,13 @@ public class JdbcProductRepository implements ProductRepository {
                 "delete from mysql.products where id>=0",
                 Collections.emptyMap()
         );
+    }
+
+    @Override
+    public void updateInventory(long id, long orderQuantity) {
+        Product product = getProductById(id).get();
+
+        product.setQuantity(product.getQuantity() - orderQuantity);
+        updateProduct(product);
     }
 }
