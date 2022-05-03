@@ -35,15 +35,15 @@ export function Summary({items = [], onOrderSubmit, onReset}) {
             <form>
                 <div className="mb-3">
                     <label htmlFor="email" className="form-label text-white">이메일</label>
-                    <input type="email" className="form-control mb-1 text-white" id="email" value={order.email} onChange={handleEmailInput}/>
+                    <input type="email" className="form-control mb-1 text-black" id="email" value={order.email} onChange={handleEmailInput}/>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="address" className="form-label text-white">주소</label>
-                    <input type="text" className="form-control mb-1 text-white" id="address" value={order.address} onChange={handleAddressInput}/>
+                    <input type="text" className="form-control mb-1 text-black" id="address" value={order.address} onChange={handleAddressInput}/>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="postcode" className="form-label text-white">우편번호</label>
-                    <input type="text" className="form-control text-white" id="postcode" value={order.postcode} onChange={handlePostcodeInput}/>
+                    <input type="text" className="form-control text-black" id="postcode" value={order.postcode} onChange={handlePostcodeInput}/>
                 </div>
                 <div className="text-white">당일 오후 2시 이후의 주문은 다음날 배송을 시작합니다.</div>
             </form>

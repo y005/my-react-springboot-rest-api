@@ -155,7 +155,14 @@ React로 만들어진 Front End가 정해져있는 상황에서,
 
 ## 게임 SHOP 웹페이지 설명 
 - 가게에서 구매 가능한 상품 정보와 수량을 확인할 수 있습니다.
+![](https://velog.velcdn.com/images/y005/post/4f17097d-bc17-4dfe-b807-756b80d2e800/image.png)
 - 사용자는 특정 게임 장르의 상품 조회가 가능합니다.
+![](https://velog.velcdn.com/images/y005/post/07710802-35c0-40d8-a28d-ed2180328dd9/image.png)
 - 사용자의 배송 정보를 다 입력한 후 결제하기를 누르면 결제가 정상적으로 등록됩니다.
+  ![](https://velog.velcdn.com/images/y005/post/201094fe-f2eb-4459-9325-ce37719f8fe8/image.png)
+  
+  ![](https://velog.velcdn.com/images/y005/post/8358fbc2-87c8-4624-802e-2bbe3d3859ec/image.png)
+  
+  ![](https://velog.velcdn.com/images/y005/post/95f1ae65-1f67-404c-aa07-c5dd57348170/image.png)
 - 재고 이상의 물품을 구매한 경우 결제가 이뤄지지 않습니다.
 - 장바구니 초기화가 가능합니다.
