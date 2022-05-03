@@ -1,8 +1,8 @@
 import {SummaryItem} from "./SummaryItem";
 import React, {useState} from "react";
 
-export function Summary({items = [], onOrderSubmit}) {
-    const total_price = items.reduce((prev, curr) => prev + (curr.price * curr.count), 0);
+export function Summary({items = [], onOrderSubmit, onReset}) {
+    let total_price = items.reduce((prev, curr) => prev + (curr.price * curr.count), 0);
     const [order, setOrder] = useState({
         email:"", address:"", postcode:"", totalPrice: 0
     });
@@ -10,7 +10,7 @@ export function Summary({items = [], onOrderSubmit}) {
     const handleAddressInput = (e) => {setOrder({...order, address: e.target.value})};
     const handlePostcodeInput = (e) => {setOrder({...order, postcode: e.target.value})};
 
-    const handleSubmit = (e) => {
+    const handleSubmit = () => {
         if (order.address==="" || order.email === "" || order.postcode === "")
         {
             alert("이메일, 주소, 우편번호를 입력하지 않았습니다.")
@@ -20,6 +20,10 @@ export function Summary({items = [], onOrderSubmit}) {
             console.log(order);
         }
     };
+
+    const handleReset = () => {
+      onReset();
+    }
 
     return (
         <>
@@ -47,7 +51,14 @@ export function Summary({items = [], onOrderSubmit}) {
                 <h5 className="col">총 금액</h5>
                 <h5 className="col text-end">{total_price}원</h5>
             </div>
-            <button className="btn btn-dark col-12" onClick={handleSubmit}>결제하기</button>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col"><button className="btn btn-dark col-12" onClick={handleSubmit}>결제하기</button></th>
+                    <th scope="col"><button className="btn btn-danger col-12" onClick={handleReset}>장바구니 초기화</button></th>
+                </tr>
+                </thead>
+            </table>
         </>
     );
 }

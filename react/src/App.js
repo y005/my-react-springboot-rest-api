@@ -46,7 +46,6 @@ function App() {
   }
 
   const handleGenreClick = (genre) => {
-    console.log(genre)
     if (genre.genre === "all") {
         axios.get('http://localhost:8080/api/v1/products')
             .then(v=>setProducts(v.data));
@@ -55,6 +54,10 @@ function App() {
         axios.get('http://localhost:8080/api/v1/products?genre='+genre.genre)
             .then(v=>setProducts(v.data));
     }
+  }
+
+  const handleReset = () => {
+        setItems([]);
   }
 
   useEffect(()=> {
@@ -78,7 +81,7 @@ function App() {
               <ProductList products={products} onAddClick={handleAddClicked} genres={genres} onGenreClick={handleGenreClick}/>
             </div>
               <div className="col-md-4 summary p-4">
-                <Summary items={items} onOrderSubmit={handleOrderSubmit}/>
+                <Summary items={items} onOrderSubmit={handleOrderSubmit} onReset={handleReset}/>
               </div>
             </div>
         </div>
