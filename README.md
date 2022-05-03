@@ -1,9 +1,15 @@
 # [프로젝트] React - Spring Boot 상품 관리 API 구현
 ## 프로젝트 설명 😎
-React로 만들어진 Front End가 정해져있는 상황에서,
-백엔드 개발자가 Spring Boot로 상품관리 API를 구현하여 A-Z 최종 서비스를 완성시켜봅니다.
+게임 재고 정보가 저장된 데이터베이스와 주문 관리 데이터베이스를 사용한 게임 판매 웹페이지로  React로 만들어진 Front End가 정해져있는 상황에서 spring boot를 이용한 재고 관리 api와 주문 관리 api 개발을 했습니다.
 
-### [클론 프로젝트](https://github.com/y005/react-springboot-rest-api) 에서 추가된 기능
+[클론 프로젝트](https://github.com/y005/react-springboot-rest-api) 의 응용 프로젝트 입니다.
+
+### 기존 기능
+- [x] 구매 가능한 게임 품목 확인 기능
+- [x] 게임 품목 관리 기능
+- [x] 게임 주문 웹페이지
+
+### 추가 기능
 
 - [x] 재고 물량 확인
 - [x] 유효한 구매 물량에 대한 유효성 검사
