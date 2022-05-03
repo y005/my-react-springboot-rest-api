@@ -6,6 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
 import javax.sql.DataSource;
 
@@ -25,6 +26,11 @@ public class WebAppContext {
     @Bean
     public JdbcTemplate jdbcTemplate(DataSource dataSource) {
         return new JdbcTemplate(dataSource);
+    }
+
+    @Bean
+    public SimpleJdbcInsert simpleJdbcInsert(DataSource dataSource) {
+        return new SimpleJdbcInsert(dataSource).withTableName("mysql.products").usingGeneratedKeyColumns("id");
     }
 
     @Bean

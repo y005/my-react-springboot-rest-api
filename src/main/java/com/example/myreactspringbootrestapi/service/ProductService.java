@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ProductService {
     public void createProduct(String name, String genre, long quantity, long price, String img) throws NoGameGenreException;
-    public void updateProduct(String name, String genre, long quantity, long price, String img) throws NoGameGenreException;
+    public void updateProduct(long id, String name, String genre, long quantity, long price, String img) throws NoGameGenreException;
     public void deleteProductByName(String name);
     public void deleteProductById(long id);
     public List<Product> getProducts(long page, long size);

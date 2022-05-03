@@ -3,9 +3,16 @@
 React로 만들어진 Front End가 정해져있는 상황에서,
 백엔드 개발자가 Spring Boot로 상품관리 API를 구현하여 A-Z 최종 서비스를 완성시켜봅니다.
 
+### [클론 프로젝트](https://github.com/y005/react-springboot-rest-api) 에서 추가된 기능
+
+- [x] 재고 물량 확인
+- [x] 유효한 구매 물량에 대한 유효성 검사
+- [x] 게임 장르별 탐색 기능
+- [x] 장바구니 초기화 버튼
+- [X] 웹페이지 UI 스타일 변경
+- [X] 조회 api 페이징 지원
 
 ## REST API 사용 명세서
-
 - products API 
   - 조회
   
@@ -101,6 +108,7 @@ React로 만들어진 Front End가 정해져있는 상황에서,
   Content-Type: application/json
 
   {
+   "id": 53
    "name": "39",
    "genre": "Adventure",
    "quantity": 100,

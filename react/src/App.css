@@ -1,5 +1,9 @@
 body {
-  background: #ddd;
+  background-image: url("./background.jpg");
+  height: auto;
+  background-repeat : no-repeat;
+  background-size : cover;
+  border-radius: 5px;
 }
 
 .card {
@@ -8,11 +12,17 @@ body {
   width: 90%;
   box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 1rem;
-  border: transparent
+  border: transparent;
+}
+.my-container {
+  background-color: rgb(114, 143, 206);
+  height: auto;
+  background-repeat : no-repeat;
+  background-size : cover;
 }
 
 .summary {
-  background-color: #ddd;
+  background-color: rgb(114, 143, 206);
   border-top-right-radius: 1rem;
   border-bottom-right-radius: 1rem;
   padding: 4vh;
@@ -40,7 +50,7 @@ body {
 }
 
 img {
-  width: 3.5rem
+  width: auto;
 }
 
 hr {

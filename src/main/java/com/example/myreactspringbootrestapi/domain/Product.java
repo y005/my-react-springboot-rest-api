@@ -36,6 +36,21 @@ public class Product {
         this.updatedAt = updatedAt;
     }
 
+    public Product(long id, String name, String genre, long quantity, long price, String img) {
+        this.id = id;
+        this.name = name;
+        this.genre = Genre.toGenre(genre);
+        this.quantity = quantity;
+        this.price = price;
+        this.img = img;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public void setName(String name) {
         this.name = name;
         setUpdatedAt();

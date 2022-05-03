@@ -4,9 +4,11 @@ import com.example.myreactspringbootrestapi.domain.Order;
 import com.example.myreactspringbootrestapi.domain.OrderItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.sql.DataSource;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +16,7 @@ import java.util.Map;
 @Repository
 public class JdbcOrderRepository implements OrderRepository {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private SimpleJdbcInsert simpleJdbcInsert;
     private JdbcProductRepository jdbcProductRepository;
 
     private Map<String, Object> getOrderParam(Order order) {
@@ -41,19 +44,20 @@ public class JdbcOrderRepository implements OrderRepository {
     }
 
     @Autowired
-    public JdbcOrderRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate, JdbcProductRepository jdbcProductRepository) {
+    public JdbcOrderRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate, JdbcProductRepository jdbcProductRepository, DataSource dataSource) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+        this.simpleJdbcInsert = new SimpleJdbcInsert(dataSource).withTableName("mysql.orders").usingGeneratedKeyColumns("id");
         this.jdbcProductRepository = jdbcProductRepository;
     }
 
     @Override
     @Transactional
     public void createOrder(Order order) {
-        namedParameterJdbcTemplate.update(
-                "insert into mysql.orders(email, address, postcode, total_price, order_status, createdAt, updatedAt) values(:email, :address, :postcode,:total_price, :order_status, :createdAt, :updatedAt)",
-                getOrderParam(order)
-        );
-        long orderId = getOrderIdByEmail(order.getEmail());
+//        namedParameterJdbcTemplate.update(
+//                "insert into mysql.orders(email, address, postcode, total_price, order_status, createdAt, updatedAt) values(:email, :address, :postcode,:total_price, :order_status, :createdAt, :updatedAt)",
+//                getOrderParam(order)
+//        );
+        long orderId = simpleJdbcInsert.executeAndReturnKey(getOrderParam(order)).longValue();
         order.getOrderItems().stream().forEach((e)->{
              jdbcProductRepository.updateInventory(e.getId(), e.getQuantity());
                 namedParameterJdbcTemplate.update(

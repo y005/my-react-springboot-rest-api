@@ -1,7 +1,5 @@
 package com.example.myreactspringbootrestapi.controller;
 
-import com.example.myreactspringbootrestapi.domain.Genre;
-import com.example.myreactspringbootrestapi.domain.Product;
 import com.example.myreactspringbootrestapi.dto.CreateProductDto;
 import com.example.myreactspringbootrestapi.dto.GenreDto;
 import com.example.myreactspringbootrestapi.dto.ProductDto;
@@ -64,11 +62,11 @@ public class ProductController {
     @ResponseBody
     public String updateProduct(@RequestBody CreateProductDto createProductDto) {
         try {
-            productService.updateProduct(createProductDto.getName(), createProductDto.getGenre(), createProductDto.getQuantity(), createProductDto.getPrice(), createProductDto.getImg());
+            productService.updateProduct(createProductDto.getId(), createProductDto.getName(), createProductDto.getGenre(), createProductDto.getQuantity(), createProductDto.getPrice(), createProductDto.getImg());
         } catch (Exception e) {
-            return "error in creating product";
+            return "error in updating product";
         }
-        return "successfully create product";
+        return "successfully update product";
     }
 
     @DeleteMapping("/{id}")

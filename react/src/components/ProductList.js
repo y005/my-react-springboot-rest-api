@@ -12,23 +12,23 @@ export function ProductList({products=[], onAddClick, genres=[], onGenreClick}) 
             <table class="table">
                 <thead>
                 <tr>
-                    <th scope="col"><h5 className="flex-grow-0"><b>상품 목록</b></h5></th>
-                    <th></th>
-                    <th scope="col"><button className="btn btn-small btn-outline-dark" onClick={onAllClick}>All</button>
+                    <td scope="col"><h5 className="flex-grow-0 text-white"><b>상품 목록</b></h5></td>
+                    <td></td>
+                    <td scope="col"><button className="btn btn-small text-white btn-outline-light" onClick={onAllClick}>All</button>
                     {genres.map(v =>
                         <GenreButton {...v} onGenreClick = {onGenreClick}/>
                     )}
-                    </th>
+                    </td>
                 </tr>
                 </thead>
             </table>
-            <ul className="list-group products">
-                {products.map(v =>
-                    <li key={v.id} className="list-group-item d-flex mt-3">
-                        <Product {...v} onAddClick={onAddClick}/>
-                    </li>
-                )}
-            </ul>
+                <div className="container">
+                    <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                        {products.map(v =>
+                                <Product {...v} onAddClick={onAddClick}/>
+                        )}
+                    </div>
+                </div>
         </React.Fragment>
     )
 }

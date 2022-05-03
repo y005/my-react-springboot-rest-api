@@ -5,6 +5,7 @@ import {ProductList} from "./components/ProductList";
 import {Summary} from "./components/Summary";
 import axios from "axios";
 import alert from "bootstrap/js/src/alert";
+import banner from './banner.png';
 
 function App() {
   //판매 상품 정보 배열
@@ -47,11 +48,11 @@ function App() {
 
   const handleGenreClick = (genre) => {
     if (genre.genre === "all") {
-        axios.get('http://localhost:8080/api/v1/products')
+        axios.get('http://localhost:8080/api/v1/products?size=6')
             .then(v=>setProducts(v.data));
     }
     else {
-        axios.get('http://localhost:8080/api/v1/products?genre='+genre.genre)
+        axios.get('http://localhost:8080/api/v1/products?genre='+genre.genre+'&size=6')
             .then(v=>setProducts(v.data));
     }
   }
@@ -61,7 +62,7 @@ function App() {
   }
 
   useEffect(()=> {
-      axios.get('http://localhost:8080/api/v1/products')
+      axios.get('http://localhost:8080/api/v1/products?size=6')
             .then(v=>setProducts(v.data));
       },[]);
 
@@ -70,23 +71,25 @@ function App() {
             .then(v=>setGenres(v.data));
       },[]);
 
-  return (
-      <div className="container-fluid">
-        <div className="row justify-content-center m-4">
-          <h1 className="text-center">Game Store</h1>
-        </div>
-        <div className="card">
-          <div className="row">
-            <div className="col-md-8 mt-4 d-flex flex-column align-items-start p-3 pt-0">
-              <ProductList products={products} onAddClick={handleAddClicked} genres={genres} onGenreClick={handleGenreClick}/>
+    return (
+        <div className="container-fluid">
+            <div className="row">
+                <div className="text-center">
+                    <img src={banner} height="200" alt=""/>
+                </div>
             </div>
-              <div className="col-md-4 summary p-4">
-                <Summary items={items} onOrderSubmit={handleOrderSubmit} onReset={handleReset}/>
-              </div>
+            <div className="card">
+                <div className="row my-container">
+                    <div className="col-md-8 mt-4 d-flex flex-column align-items-start p-3 pt-0">
+                        <ProductList products={products} onAddClick={handleAddClicked} genres={genres} onGenreClick={handleGenreClick}/>
+                    </div>
+                    <div className="col-md-4 summary p-4" >
+                        <Summary items={items} onOrderSubmit={handleOrderSubmit} onReset={handleReset}/>
+                    </div>
+                </div>
             </div>
         </div>
-      </div>
-  );
+    );
 }
 
 export default App;

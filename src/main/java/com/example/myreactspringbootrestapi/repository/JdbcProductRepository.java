@@ -5,8 +5,10 @@ import com.example.myreactspringbootrestapi.domain.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -15,6 +17,7 @@ import java.util.*;
 @Repository
 public class JdbcProductRepository implements ProductRepository {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private SimpleJdbcInsert simpleJdbcInsert;
 
     private RowMapper<Product> productRowMapper = (resultSet, i)-> {
         long id = resultSet.getLong("id");
@@ -43,8 +46,9 @@ public class JdbcProductRepository implements ProductRepository {
     }
 
     @Autowired
-    public JdbcProductRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+    public JdbcProductRepository(NamedParameterJdbcTemplate namedParameterJdbcTemplate, DataSource dataSource) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+        this.simpleJdbcInsert = new SimpleJdbcInsert(dataSource).withTableName("mysql.products").usingGeneratedKeyColumns("id");
     }
 
     @Override
@@ -56,18 +60,11 @@ public class JdbcProductRepository implements ProductRepository {
 
     @Override
     public void updateProduct(Product product) {
-        Product updatedProduct = getProductByName(product.getName()).get();
-
-        updatedProduct.setName(product.getName());
-        updatedProduct.setGenre(product.getGenre());
-        updatedProduct.setPrice(product.getPrice());
-        updatedProduct.setQuantity(product.getQuantity());
-        updatedProduct.setImg(product.getImg());
-
-        Map<String, Object> productParam = getProductParam(updatedProduct);
-        productParam.put("id", updatedProduct.getId());
+        Map<String, Object> productParam = getProductParam(product);
+        productParam.put("id", product.getId());
+        productParam.put("updatedAt", LocalDateTime.now().toString());
         namedParameterJdbcTemplate.update(
-                "update mysql.products set name=:name, genre=:genre, price=:price, quantity=:quantity, img=:img, createdAt=:createdAt, updatedAt=:updatedAt where id=:id",
+                "update mysql.products set name=:name, genre=:genre, price=:price, quantity=:quantity, img=:img, updatedAt=:updatedAt where id=:id",
                 productParam
         );
     }

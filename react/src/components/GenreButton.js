@@ -8,7 +8,7 @@ export function GenreButton(props) {
     };
 
     return <>
-        <button className="btn btn-small btn-outline-dark" onClick={handleGenreBtnClicked}>{genre}</button>
+        <button className="btn btn-small btn-outline-light text-white" onClick={handleGenreBtnClicked}>{genre}</button>
     </>
 }
 

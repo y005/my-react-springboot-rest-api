@@ -24,8 +24,8 @@ public class DefaultProductService implements ProductService{
     }
 
     @Override
-    public void updateProduct(String name, String genre, long quantity, long price, String img) throws NoGameGenreException {
-        jdbcProductRepository.updateProduct(new Product(name, genre, quantity, price, img));
+    public void updateProduct(long id,String name, String genre, long quantity, long price, String img) throws NoGameGenreException {
+        jdbcProductRepository.updateProduct(new Product(id, name, genre, quantity, price, img));
     }
 
     @Override
