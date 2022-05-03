@@ -37,7 +37,6 @@ public class JdbcOrderRepository implements OrderRepository {
 
         orderItemParam.put("order_id",orderId);
         orderItemParam.put("product_id",orderItem.getId());
-        orderItemParam.put("genre",orderItem.getGenre());
         orderItemParam.put("price",orderItem.getPrice());
         orderItemParam.put("quantity",orderItem.getQuantity());
         return orderItemParam;
@@ -53,15 +52,11 @@ public class JdbcOrderRepository implements OrderRepository {
     @Override
     @Transactional
     public void createOrder(Order order) {
-//        namedParameterJdbcTemplate.update(
-//                "insert into mysql.orders(email, address, postcode, total_price, order_status, createdAt, updatedAt) values(:email, :address, :postcode,:total_price, :order_status, :createdAt, :updatedAt)",
-//                getOrderParam(order)
-//        );
         long orderId = simpleJdbcInsert.executeAndReturnKey(getOrderParam(order)).longValue();
         order.getOrderItems().stream().forEach((e)->{
              jdbcProductRepository.updateInventory(e.getId(), e.getQuantity());
                 namedParameterJdbcTemplate.update(
-                        "insert into mysql.orders_item(order_id, product_id, genre, quantity, price) values(:order_id, :product_id, :genre, :quantity, :price)",
+                        "insert into mysql.orders_items(order_id, product_id, quantity, price) values(:order_id, :product_id, :quantity, :price)",
                         getOrderItemParam(e, orderId)
                 );
         });

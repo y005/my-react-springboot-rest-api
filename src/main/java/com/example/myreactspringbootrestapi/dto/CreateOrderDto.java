@@ -12,6 +12,6 @@ public class CreateOrderDto {
     private String email;
     private String address;
     private String postcode;
-    private long totalPrice;
+    private Long totalPrice;
     private List<OrderItem> orderItems;
 }

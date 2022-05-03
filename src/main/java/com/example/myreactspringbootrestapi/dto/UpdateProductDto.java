@@ -5,7 +5,8 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class CreateProductDto {
+public class UpdateProductDto {
+    private Long id;
     private String name;
     private String genre;
     private Long quantity;

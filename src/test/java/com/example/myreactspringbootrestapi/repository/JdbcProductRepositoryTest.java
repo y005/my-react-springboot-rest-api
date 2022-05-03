@@ -27,12 +27,12 @@ class JdbcProductRepositoryTest {
 
     @Test
     void createProduct() {
-        jdbcProductRepository.createProduct(new Product("zelda", "Adventure", 50, 75000, "pic"));
+        jdbcProductRepository.createProduct(Product.of("zelda", "Adventure", 50, 75000, "pic"));
 
         Product result = jdbcProductRepository.getProducts(0, 5).get(0);
 
         assertThat(result.getName(), is("zelda"));
-        assertThat(result.getGenre(), is("adventure"));
+        assertThat(result.getGenre(), is("Adventure"));
         assertThat(result.getQuantity(), is(50l));
         assertThat(result.getPrice(), is(75000l));
         assertThat(result.getImg(), is("pic"));
@@ -40,10 +40,10 @@ class JdbcProductRepositoryTest {
 
     @Test
     void updateProduct() {
-        jdbcProductRepository.createProduct(new Product("zelda", "Adventure", 50, 75000, "pic"));
+        jdbcProductRepository.createProduct(Product.of("zelda", "Adventure", 50, 75000, "pic"));
         Product result = jdbcProductRepository.getProducts(0, 5).get(0);
         result.setName("link");
-        result.setGenre("puzzle");
+        result.setGenre("Puzzle");
         result.setQuantity(100l);
         result.setPrice(80000l);
         result.setImg("img");
@@ -60,7 +60,7 @@ class JdbcProductRepositoryTest {
 
     @Test
     void deleteProductByName() {
-        jdbcProductRepository.createProduct(new Product("zelda", "Adventure", 50, 75000, "pic"));
+        jdbcProductRepository.createProduct(Product.of("zelda", "Adventure", 50, 75000, "pic"));
 
         int result = jdbcProductRepository.getProducts(0, 5).size();
         jdbcProductRepository.deleteProductByName("zelda");
@@ -72,7 +72,7 @@ class JdbcProductRepositoryTest {
 
     @Test
     void deleteProductById() {
-        jdbcProductRepository.createProduct(new Product("zelda", "Adventure", 50, 75000, "pic"));
+        jdbcProductRepository.createProduct(Product.of("zelda", "Adventure", 50, 75000, "pic"));
 
         long id = jdbcProductRepository.getProducts(0, 5).get(0).getId();
         jdbcProductRepository.deleteProductById(id);
@@ -83,12 +83,12 @@ class JdbcProductRepositoryTest {
 
     @Test
     void getProducts() {
-        jdbcProductRepository.createProduct(new Product("zelda", "Adventure", 50, 75000, "pic"));
+        jdbcProductRepository.createProduct(Product.of("zelda", "Adventure", 50, 75000, "pic"));
 
         Product result = jdbcProductRepository.getProducts(0, 5).get(0);
 
         assertThat(result.getName(), is("zelda"));
-        assertThat(result.getGenre(), is("adventure"));
+        assertThat(result.getGenre(), is("Adventure"));
         assertThat(result.getQuantity(), is(50l));
         assertThat(result.getPrice(), is(75000l));
         assertThat(result.getImg(), is("pic"));
@@ -96,7 +96,7 @@ class JdbcProductRepositoryTest {
 
     @Test
     void getProductById() {
-        jdbcProductRepository.createProduct(new Product("zelda", "Adventure", 50, 75000, "pic"));
+        jdbcProductRepository.createProduct(Product.of("zelda", "Adventure", 50, 75000, "pic"));
 
         long id = jdbcProductRepository.getProducts(0, 5).get(0).getId();
         Product result = jdbcProductRepository.getProductById(id).get();
@@ -110,7 +110,7 @@ class JdbcProductRepositoryTest {
 
     @Test
     void getProductByName() {
-        jdbcProductRepository.createProduct(new Product("zelda", "Adventure", 50, 75000, "pic"));
+        jdbcProductRepository.createProduct(Product.of("zelda", "Adventure", 50, 75000, "pic"));
 
         Product result = jdbcProductRepository.getProductByName("zelda").get();
 
@@ -123,8 +123,8 @@ class JdbcProductRepositoryTest {
 
     @Test
     void getProductGenres() {
-        jdbcProductRepository.createProduct(new Product("The Legend of Zelda", "Adventure", 5, 75000, "http://image.auction.co.kr/itemimage/15/1f/28/151f28b126.jpg"));
-        jdbcProductRepository.createProduct(new Product("OverWatch", "FPS", 10, 25000, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyal5mLSCi24Lhz-JC0lZPES6G2NIzt5sZVA&usqp=CAU"));
+        jdbcProductRepository.createProduct(Product.of("The Legend of Zelda", "Adventure", 5, 75000, "http://image.auction.co.kr/itemimage/15/1f/28/151f28b126.jpg"));
+        jdbcProductRepository.createProduct(Product.of("OverWatch", "FPS", 10, 25000, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyal5mLSCi24Lhz-JC0lZPES6G2NIzt5sZVA&usqp=CAU"));
 
         List<String> genres = jdbcProductRepository.getProductGenres().stream().map(Objects::toString).toList();
 

@@ -6,10 +6,10 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class ProductDto {
-    private long id ;
+    private Long id ;
     private String name;
     private String genre;
-    private long quantity;
-    private long price;
+    private Long quantity;
+    private Long price;
     private String img;
 }

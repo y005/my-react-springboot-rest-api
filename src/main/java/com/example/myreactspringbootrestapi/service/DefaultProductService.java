@@ -2,7 +2,6 @@ package com.example.myreactspringbootrestapi.service;
 
 import com.example.myreactspringbootrestapi.domain.Genre;
 import com.example.myreactspringbootrestapi.domain.Product;
-import com.example.myreactspringbootrestapi.exception.NoGameGenreException;
 import com.example.myreactspringbootrestapi.repository.JdbcProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,13 +18,13 @@ public class DefaultProductService implements ProductService{
     }
 
     @Override
-    public void createProduct(String name, String genre, long quantity, long price, String img) throws NoGameGenreException {
-        jdbcProductRepository.createProduct(new Product(name, genre, quantity, price, img));
+    public void createProduct(String name, String genre, long quantity, long price, String img) {
+        jdbcProductRepository.createProduct(Product.of(name, genre, quantity, price, img));
     }
 
     @Override
-    public void updateProduct(long id,String name, String genre, long quantity, long price, String img) throws NoGameGenreException {
-        jdbcProductRepository.updateProduct(new Product(id, name, genre, quantity, price, img));
+    public void updateProduct(long id,String name, String genre, long quantity, long price, String img) {
+        jdbcProductRepository.updateProduct(Product.of(id, name, genre, quantity, price, img));
     }
 
     @Override

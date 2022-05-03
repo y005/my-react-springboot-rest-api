@@ -29,11 +29,6 @@ public class WebAppContext {
     }
 
     @Bean
-    public SimpleJdbcInsert simpleJdbcInsert(DataSource dataSource) {
-        return new SimpleJdbcInsert(dataSource).withTableName("mysql.products").usingGeneratedKeyColumns("id");
-    }
-
-    @Bean
     public NamedParameterJdbcTemplate namedParameterJdbcTemplate(JdbcTemplate jdbcTemplate) {
         return new NamedParameterJdbcTemplate(jdbcTemplate);
     }

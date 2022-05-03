@@ -7,7 +7,6 @@ import lombok.Getter;
 @AllArgsConstructor
 public class OrderItem {
     private long id;
-    private String genre;
     private long quantity;
     private long price;
 }

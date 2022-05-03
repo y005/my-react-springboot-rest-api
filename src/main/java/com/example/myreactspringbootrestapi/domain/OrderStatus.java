@@ -18,7 +18,7 @@ public enum OrderStatus {
     }
 
     public static OrderStatus toOrderStatus(String orderStatus) {
-        return Arrays.stream(values()).filter(e->e.toString().equals(orderStatus)).findFirst().get();
+        return Arrays.stream(values()).filter(e->e.toString().equals(orderStatus)).findFirst().orElseThrow(()-> new RuntimeException("존재하지 않는 order status"));
     }
 
     @Override

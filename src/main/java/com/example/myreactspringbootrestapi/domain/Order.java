@@ -7,7 +7,6 @@ import java.util.List;
 
 @Getter
 public class Order {
-    private long id;
     private Email email;
     private String address;
     private String postcode;
@@ -17,6 +16,7 @@ public class Order {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    //유효성 검사 처리
     public Order(String email, String address, String postcode, long totalPrice, String orderStatus,List<OrderItem> orderItems) {
         this.email = new Email(email);
         this.address = address;

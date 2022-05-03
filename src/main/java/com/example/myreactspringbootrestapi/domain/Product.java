@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 @Getter
 public class Product {
-    private long id ;
+    private long id;
     private String name;
     private Genre genre;
     private long quantity;
@@ -15,16 +15,17 @@ public class Product {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public Product(String name, String genre, long quantity, long price, String img) {
-        this.name = name;
-        this.genre = Genre.toGenre(genre);
-        this.quantity = quantity;
-        this.price = price;
-        this.img = img;
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
+    private static final long VALUE_NOT_ASSIGNED = -1;
+
+    public static Product of(String name, String genre, long quantity, long price, String img) {
+        return new Product(VALUE_NOT_ASSIGNED, name, genre, quantity, price, img, LocalDateTime.now(), LocalDateTime.now());
     }
 
+    public static Product of(long id, String name, String genre, long quantity, long price, String img) {
+        return new Product(id, name, genre, quantity, price, img, LocalDateTime.now(), LocalDateTime.now());
+    }
+
+    //유효성 검사 처리
     public Product(long id, String name, String genre, long quantity, long price, String img, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
@@ -34,17 +35,6 @@ public class Product {
         this.img = img;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-    }
-
-    public Product(long id, String name, String genre, long quantity, long price, String img) {
-        this.id = id;
-        this.name = name;
-        this.genre = Genre.toGenre(genre);
-        this.quantity = quantity;
-        this.price = price;
-        this.img = img;
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
     }
 
     public void setId(long id) {
