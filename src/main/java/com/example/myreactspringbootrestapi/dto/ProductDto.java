@@ -3,10 +3,15 @@ package com.example.myreactspringbootrestapi.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 @Getter
 @AllArgsConstructor
 public class ProductDto {
-    private Long id ;
+    @NotNull
+    private Long id;
+    @NotBlank
     private String name;
     private String genre;
     private Long quantity;

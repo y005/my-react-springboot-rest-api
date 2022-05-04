@@ -1,6 +1,9 @@
 package com.example.myreactspringbootrestapi.domain;
 
+import com.example.myreactspringbootrestapi.exception.NoGameGenreException;
+
 import java.util.Arrays;
+import java.util.List;
 
 public enum Genre {
     ADVENTURE("Adventure"),
@@ -17,7 +20,12 @@ public enum Genre {
     }
 
     public static Genre toGenre(String genre) {
-        return Arrays.stream(values()).filter(e->e.toString().equals(genre)).findFirst().get();
+        return Arrays.stream(values()).filter(e->e.toString().equals(genre)).findFirst().orElseThrow(
+                ()-> {
+                    List<String> validGenre = Arrays.stream(values()).map(Genre::toString).toList();
+                    return new NoGameGenreException("Game genre not existed. Valid genre is " + validGenre);
+                }
+        );
     }
 
     @Override

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
@@ -42,37 +43,27 @@ public class ProductController {
     }
 
     @PostMapping(value = "",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public String createProduct(@RequestBody CreateProductDto createProductDto) {
-        try {
-            productService.createProduct(createProductDto.getName(), createProductDto.getGenre(), createProductDto.getQuantity(), createProductDto.getPrice(), createProductDto.getImg());
-        }
-        catch (Exception e) {
-            return "error in creating product";
-        }
-        return "successfully create product";
+    public String createProduct(@RequestBody @Valid CreateProductDto createProductDto) {
+        productService.createProduct(createProductDto.getName(), createProductDto.getGenre(), createProductDto.getQuantity(), createProductDto.getPrice(), createProductDto.getImg());
+        return "Successfully create product";
     }
 
     @PutMapping(value = "",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public String updateProduct(@RequestBody UpdateProductDto updateProductDto) {
-        try {
-            productService.updateProduct(updateProductDto.getId(), updateProductDto.getName(), updateProductDto.getGenre(), updateProductDto.getQuantity(), updateProductDto.getPrice(), updateProductDto.getImg());
-        }
-        catch (Exception e) {
-            return "error in updating product";
-        }
-        return "successfully update product";
+    public String updateProduct(@RequestBody @Valid UpdateProductDto updateProductDto) {
+        productService.updateProduct(updateProductDto.getId(), updateProductDto.getName(), updateProductDto.getGenre(), updateProductDto.getQuantity(), updateProductDto.getPrice(), updateProductDto.getImg());
+        return "Successfully update product";
     }
 
     @DeleteMapping("/{id}")
     public String deleteProduct(@PathVariable long id) {
         productService.deleteProductById(id);
-        return "successfully delete product";
+        return "Successfully delete product";
     }
 
     @DeleteMapping("")
     public String deleteProduct(@RequestParam(value ="name") String name) {
         productService.deleteProductByName(name);
-        return "successfully delete product";
+        return "Successfully delete product";
     }
 
     @GetMapping("/genres")

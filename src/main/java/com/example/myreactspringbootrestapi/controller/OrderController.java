@@ -4,12 +4,17 @@ import com.example.myreactspringbootrestapi.dto.CreateOrderDto;
 import com.example.myreactspringbootrestapi.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-@Controller
+import javax.validation.Valid;
+
+@RestController
 @RequestMapping("/api/v1/orders")
-public class OrderController {
+public class OrderController extends ResponseEntityExceptionHandler {
     private OrderService orderService;
 
     @Autowired
@@ -18,14 +23,9 @@ public class OrderController {
     }
 
     @PostMapping(value = "",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public String createOrder(@RequestBody CreateOrderDto createOrderDto) {
-        try {
-            orderService.createOrder(createOrderDto.getEmail(), createOrderDto.getAddress(), createOrderDto.getPostcode(), createOrderDto.getTotalPrice(), createOrderDto.getOrderItems());
-        }
-        catch (Exception e) {
-            return e.getMessage();
-        }
+    public String createOrder(@RequestBody @Valid CreateOrderDto createOrderDto) {
+        orderService.createOrder(createOrderDto.getEmail(), createOrderDto.getAddress(), createOrderDto.getPostcode(), createOrderDto.getTotalPrice(), createOrderDto.getOrderItems());
         return "successfully create order";
     }
 }
+

@@ -25,7 +25,6 @@ public class Product {
         return new Product(id, name, genre, quantity, price, img, LocalDateTime.now(), LocalDateTime.now());
     }
 
-    //유효성 검사 처리
     public Product(long id, String name, String genre, long quantity, long price, String img, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
