@@ -11,6 +11,7 @@ public enum Genre {
     ACTION("Action"),
     FPS("FPS"),
     SPORTS("Sports"),
+    RACING("Racing"),
     ;
 
     private final String genre;

@@ -17,6 +17,8 @@
 - [x] 장바구니 초기화 버튼
 - [X] 웹페이지 UI 스타일 변경
 - [X] 조회 api 페이징 지원
+- [X] Bean Validation을 통한 DTO 무결성 검증
+- [X] ControllerAdvice와 ExceptionHandler 사용을 통한 예외처리 응답
 
 ## REST API 사용 명세서
 - products API 

@@ -8,14 +8,11 @@ import javax.validation.constraints.Positive;
 
 @Getter
 @AllArgsConstructor
-public class UpdateProductDto {
+public class CreateOrderItemDto {
     @NotNull
-    private Long id;
-    private String name;
-    private String genre;
+    private long id;
     @Positive(message = "Quantity should be positive")
-    private Long quantity;
+    private long quantity;
     @Positive(message = "Price should be positive")
-    private Long price;
-    private String img;
+    private long price;
 }

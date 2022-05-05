@@ -42,7 +42,7 @@ function App() {
                     price: v.price,
                     quantity: v.count
                 }))
-        }).then(v => alert("주문이 정상적으로 접수되었습니다."), e => alert("서버 장애") );
+        }).then(v => window.alert(v.data), e => window.alert(e.response.data) );
     }
   }
 
