@@ -27,7 +27,7 @@ function App() {
 
   const handleOrderSubmit = (order) => {
     if (items.length === 0) {
-        alert("최소 1개 이상의 아이템을 선택해주세요.");
+        window.alert("최소 1개 이상의 아이템을 선택해주세요.");
     }
     else {
         axios.post("http://localhost:8080/api/v1/orders",{

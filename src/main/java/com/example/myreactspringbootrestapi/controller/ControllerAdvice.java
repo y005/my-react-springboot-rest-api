@@ -43,6 +43,6 @@ public class ControllerAdvice {
     @ExceptionHandler({IllegalArgumentException.class})
     public ResponseEntity handleValidException2(Exception exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body("Input correct type of infomation");
+                .body(exception.getMessage());
     }
 }
